@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import PaginaInstitucional from "@/pages/PaginaInstitucional";
 import BibliotecaVirtual from "@/pages/BibliotecaVirtual";
 import RinconCivico from "@/pages/RinconCivico";
-import PortalPadres from "@/pages/PortalPadres";
+import HerramientasIA from "@/pages/HerramientasIA";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,7 +26,7 @@ const App = () => (
             <Route path="/" element={<PaginaInstitucional />} />
             <Route path="/biblioteca" element={<BibliotecaVirtual />} />
             <Route path="/rincon-civico" element={<RinconCivico />} />
-            <Route path="/portal-padres" element={<PortalPadres />} />
+            <Route path="/herramientas-ia" element={<HerramientasIA />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

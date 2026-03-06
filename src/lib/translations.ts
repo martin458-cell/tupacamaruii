@@ -2,7 +2,7 @@ export type Lang = 'es' | 'qu';
 
 export const locales = {
   es: {
-    nav: { home: "Inicio", essence: "Esencia", methodology: "Metodología", admissions: "Admisiones", library: "Biblioteca", civic: "Rincón Cívico", portal: "Portal Padres" },
+    nav: { home: "Inicio", essence: "Esencia", methodology: "Metodología", admissions: "Admisiones", library: "Biblioteca", civic: "Rincón Cívico", tools: "Herramientas IA" },
     hero: {
       title1: "Formando a los líderes del mañana con ",
       titleHighlight: "amor e innovación",
@@ -97,7 +97,7 @@ export const locales = {
     back: "Volver"
   },
   qu: {
-    nav: { home: "Qallariy", essence: "Yachayninchik", methodology: "Yachachiy Ñan", admissions: "Qillqakuy", library: "Ñawinchana Wasi", civic: "Llaqta Taki", portal: "Tayta-Mamakuna" },
+    nav: { home: "Qallariy", essence: "Yachayninchik", methodology: "Yachachiy Ñan", admissions: "Qillqakuy", library: "Ñawinchana Wasi", civic: "Llaqta Taki", tools: "IA Llamkanakuna" },
     hero: {
       title1: "Paqarin pusaqkunata wiñachispa ",
       titleHighlight: "munakuywan musuq yachaywanpas",
