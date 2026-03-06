@@ -43,7 +43,7 @@ const PaginaInstitucional = () => {
     { icon: Calendar, title: t.quick.calTitle, desc: t.quick.calDesc, color: 'text-primary' },
     { icon: BookOpen, title: t.quick.platTitle, desc: t.quick.platDesc, color: 'text-primary', to: '/biblioteca' },
     { icon: Globe2, title: lang === 'es' ? 'Rincón' : 'Llaqta', desc: lang === 'es' ? 'Cívico' : 'Taki', color: 'text-primary', to: '/rincon-civico' },
-    { icon: Bell, title: lang === 'es' ? 'Portal' : 'Tayta', desc: lang === 'es' ? 'Padres' : 'Mama', color: 'text-destructive', to: '/portal-padres' },
+    { icon: Bell, title: lang === 'es' ? 'Herramientas' : 'Llamkana', desc: lang === 'es' ? 'IA' : 'IA', color: 'text-destructive', to: '/herramientas-ia' },
   ];
 
   return (
@@ -68,8 +68,8 @@ const PaginaInstitucional = () => {
                 {t.hero.btnPrimary}
                 <ChevronRight size={18} />
               </a>
-              <Link to="/portal-padres" className="inline-flex items-center gap-2 bg-card text-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-md border border-border hover:border-primary/30 transition-all">
-                {t.hero.btnSecondary}
+              <Link to="/herramientas-ia" className="inline-flex items-center gap-2 bg-card text-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-md border border-border hover:border-primary/30 transition-all">
+                {lang === 'es' ? 'Herramientas IA' : 'IA Llamkanakuna'}
               </Link>
             </div>
           </div>
