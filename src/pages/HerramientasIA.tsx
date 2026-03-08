@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { Search, ExternalLink, X, Sparkles } from 'lucide-react';
+import { useState, useMemo, useRef, useEffect } from 'react';
+import { Search, ExternalLink, X, Sparkles, ArrowUpRight, Zap, Star } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 
 interface AppTool {
@@ -9,45 +9,58 @@ interface AppTool {
   url: string;
   desc: string;
   atomicNumber?: number;
+  featured?: boolean;
 }
 
-const categories: Record<string, { name: string; full: string; color: string; textColor: string }> = {
-  ai_gen: { name: "IA Gen.", full: "IA Generativa y Chat", color: "bg-fuchsia-500", textColor: "text-fuchsia-600" },
-  creation: { name: "Creación", full: "Diseño y Creación", color: "bg-blue-500", textColor: "text-blue-600" },
-  programming: { name: "Código", full: "Programación", color: "bg-lime-600", textColor: "text-lime-700" },
-  organization: { name: "Org.", full: "Organización", color: "bg-amber-500", textColor: "text-amber-600" },
-  communication: { name: "Comun.", full: "Comunicación", color: "bg-cyan-500", textColor: "text-cyan-600" },
-  content_mgmt: { name: "Gestión", full: "LMS / Gestión Docente", color: "bg-pink-500", textColor: "text-pink-600" },
-  evaluation: { name: "Eval.", full: "Evaluación", color: "bg-emerald-500", textColor: "text-emerald-600" },
-  edu_content: { name: "Contenido", full: "Contenido Educativo", color: "bg-orange-500", textColor: "text-orange-600" },
-  resources: { name: "Recursos", full: "Recursos Extra", color: "bg-violet-500", textColor: "text-violet-600" },
+const categories: Record<string, { name: string; full: string; color: string; textColor: string; bgLight: string; emoji: string }> = {
+  ai_gen: { name: "IA Gen.", full: "IA Generativa y Chat", color: "bg-fuchsia-500", textColor: "text-fuchsia-600", bgLight: "bg-fuchsia-50 dark:bg-fuchsia-950/30", emoji: "🤖" },
+  creation: { name: "Creación", full: "Diseño y Creación", color: "bg-blue-500", textColor: "text-blue-600", bgLight: "bg-blue-50 dark:bg-blue-950/30", emoji: "🎨" },
+  programming: { name: "Código", full: "Programación", color: "bg-lime-600", textColor: "text-lime-700 dark:text-lime-400", bgLight: "bg-lime-50 dark:bg-lime-950/30", emoji: "💻" },
+  organization: { name: "Org.", full: "Organización", color: "bg-amber-500", textColor: "text-amber-600", bgLight: "bg-amber-50 dark:bg-amber-950/30", emoji: "📋" },
+  communication: { name: "Comun.", full: "Comunicación", color: "bg-cyan-500", textColor: "text-cyan-600", bgLight: "bg-cyan-50 dark:bg-cyan-950/30", emoji: "💬" },
+  content_mgmt: { name: "Gestión", full: "LMS / Gestión Docente", color: "bg-pink-500", textColor: "text-pink-600", bgLight: "bg-pink-50 dark:bg-pink-950/30", emoji: "📚" },
+  evaluation: { name: "Eval.", full: "Evaluación", color: "bg-emerald-500", textColor: "text-emerald-600", bgLight: "bg-emerald-50 dark:bg-emerald-950/30", emoji: "✅" },
+  edu_content: { name: "Contenido", full: "Contenido Educativo", color: "bg-orange-500", textColor: "text-orange-600", bgLight: "bg-orange-50 dark:bg-orange-950/30", emoji: "📖" },
+  resources: { name: "Recursos", full: "Recursos Extra", color: "bg-violet-500", textColor: "text-violet-600", bgLight: "bg-violet-50 dark:bg-violet-950/30", emoji: "🧰" },
+};
+
+const categoryGradient: Record<string, string> = {
+  ai_gen: "from-fuchsia-500/10 to-fuchsia-500/5",
+  creation: "from-blue-500/10 to-blue-500/5",
+  programming: "from-lime-500/10 to-lime-500/5",
+  organization: "from-amber-500/10 to-amber-500/5",
+  communication: "from-cyan-500/10 to-cyan-500/5",
+  content_mgmt: "from-pink-500/10 to-pink-500/5",
+  evaluation: "from-emerald-500/10 to-emerald-500/5",
+  edu_content: "from-orange-500/10 to-orange-500/5",
+  resources: "from-violet-500/10 to-violet-500/5",
 };
 
 const categoryHoverBorder: Record<string, string> = {
-  ai_gen: "hover:border-fuchsia-400 hover:shadow-fuchsia-100",
-  creation: "hover:border-blue-400 hover:shadow-blue-100",
-  programming: "hover:border-lime-400 hover:shadow-lime-100",
-  organization: "hover:border-amber-400 hover:shadow-amber-100",
-  communication: "hover:border-cyan-400 hover:shadow-cyan-100",
-  content_mgmt: "hover:border-pink-400 hover:shadow-pink-100",
-  evaluation: "hover:border-emerald-400 hover:shadow-emerald-100",
-  edu_content: "hover:border-orange-400 hover:shadow-orange-100",
-  resources: "hover:border-violet-400 hover:shadow-violet-100",
+  ai_gen: "hover:border-fuchsia-400 hover:shadow-fuchsia-200/50 dark:hover:shadow-fuchsia-900/30",
+  creation: "hover:border-blue-400 hover:shadow-blue-200/50 dark:hover:shadow-blue-900/30",
+  programming: "hover:border-lime-400 hover:shadow-lime-200/50 dark:hover:shadow-lime-900/30",
+  organization: "hover:border-amber-400 hover:shadow-amber-200/50 dark:hover:shadow-amber-900/30",
+  communication: "hover:border-cyan-400 hover:shadow-cyan-200/50 dark:hover:shadow-cyan-900/30",
+  content_mgmt: "hover:border-pink-400 hover:shadow-pink-200/50 dark:hover:shadow-pink-900/30",
+  evaluation: "hover:border-emerald-400 hover:shadow-emerald-200/50 dark:hover:shadow-emerald-900/30",
+  edu_content: "hover:border-orange-400 hover:shadow-orange-200/50 dark:hover:shadow-orange-900/30",
+  resources: "hover:border-violet-400 hover:shadow-violet-200/50 dark:hover:shadow-violet-900/30",
 };
 
 const allApps: AppTool[] = [
-  { name: "ChatGPT", symbol: "Gpt", cat: "ai_gen", url: "https://chatgpt.com/", desc: "El modelo de lenguaje líder para planificación, ideas y redacción." },
-  { name: "Gemini", symbol: "Ge", cat: "ai_gen", url: "https://gemini.google.com/app?hl=es", desc: "La IA multimodal de Google conectada con sus herramientas." },
-  { name: "Copilot", symbol: "Co", cat: "ai_gen", url: "https://copilot.microsoft.com/", desc: "Asistente IA de Microsoft integrado en Edge y Office." },
+  { name: "ChatGPT", symbol: "Gpt", cat: "ai_gen", url: "https://chatgpt.com/", desc: "El modelo de lenguaje líder para planificación, ideas y redacción.", featured: true },
+  { name: "Gemini", symbol: "Ge", cat: "ai_gen", url: "https://gemini.google.com/app?hl=es", desc: "La IA multimodal de Google conectada con sus herramientas.", featured: true },
+  { name: "Copilot", symbol: "Co", cat: "ai_gen", url: "https://copilot.microsoft.com/", desc: "Asistente IA de Microsoft integrado en Edge y Office.", featured: true },
   { name: "Perplexity", symbol: "Px", cat: "ai_gen", url: "https://www.perplexity.ai", desc: "Buscador conversacional que cita fuentes reales en tiempo real." },
-  { name: "Claude", symbol: "Cl", cat: "ai_gen", url: "https://claude.com/", desc: "IA de Anthropic, excelente para análisis de textos largos y naturales." },
-  { name: "Gamma", symbol: "Gm", cat: "creation", url: "https://gamma.app", desc: "IA que crea presentaciones, documentos y páginas web en segundos." },
+  { name: "Claude", symbol: "Cl", cat: "ai_gen", url: "https://claude.com/", desc: "IA de Anthropic, excelente para análisis de textos largos y naturales.", featured: true },
+  { name: "Gamma", symbol: "Gm", cat: "creation", url: "https://gamma.app", desc: "IA que crea presentaciones, documentos y páginas web en segundos.", featured: true },
   { name: "Curipod", symbol: "Cu", cat: "creation", url: "https://curipod.com", desc: "Crea lecciones interactivas con encuestas y dibujos generados por IA." },
   { name: "Suno", symbol: "Su", cat: "creation", url: "https://suno.com", desc: "Generación de canciones y música completa mediante IA." },
   { name: "HeyGen", symbol: "Hg", cat: "creation", url: "https://www.heygen.com", desc: "Crea videos con avatares hablantes realistas multilingües." },
   { name: "M.Journey", symbol: "Mj", cat: "creation", url: "https://www.midjourney.com", desc: "Generador de imágenes artísticas de alta calidad por IA (Discord)." },
   { name: "Genially", symbol: "Gn", cat: "creation", url: "https://genial.ly", desc: "Crea contenidos interactivos espectaculares." },
-  { name: "Canva", symbol: "Ca", cat: "creation", url: "https://www.canva.com", desc: "Diseño gráfico e IA con su Estudio Mágico." },
+  { name: "Canva", symbol: "Ca", cat: "creation", url: "https://www.canva.com", desc: "Diseño gráfico e IA con su Estudio Mágico.", featured: true },
   { name: "Nearpod", symbol: "Np", cat: "creation", url: "https://nearpod.com", desc: "Lecciones interactivas VR y evaluación." },
   { name: "Prezi", symbol: "Pr", cat: "creation", url: "https://prezi.com", desc: "Presentaciones dinámicas." },
   { name: "Flip", symbol: "Fp", cat: "creation", url: "https://flip.tools/", desc: "Video debates (Microsoft)." },
@@ -57,7 +70,7 @@ const allApps: AppTool[] = [
   { name: "AppInv", symbol: "Ai", cat: "programming", url: "https://appinventor.mit.edu", desc: "Creación de Apps Android." },
   { name: "HourCode", symbol: "Hc", cat: "programming", url: "https://hourofcode.com", desc: "Iniciación a la programación." },
   { name: "Miro", symbol: "Mr", cat: "organization", url: "https://miro.com", desc: "Pizarra infinita colaborativa." },
-  { name: "Padlet", symbol: "Pa", cat: "organization", url: "https://padlet.com", desc: "Muros digitales colaborativos." },
+  { name: "Padlet", symbol: "Pa", cat: "organization", url: "https://padlet.com", desc: "Muros digitales colaborativos.", featured: true },
   { name: "Jamboard", symbol: "Jb", cat: "organization", url: "https://jamboard.google.com", desc: "Pizarra de Google." },
   { name: "Trello", symbol: "Tr", cat: "organization", url: "https://trello.com", desc: "Gestión de proyectos Kanban." },
   { name: "Symbaloo", symbol: "Sy", cat: "organization", url: "https://www.symbaloo.com", desc: "Organización de enlaces." },
@@ -67,7 +80,7 @@ const allApps: AppTool[] = [
   { name: "Teams", symbol: "Tm", cat: "communication", url: "https://www.microsoft.com/en-us/microsoft-teams/group-chat-software", desc: "Hub de trabajo Microsoft." },
   { name: "ClassDojo", symbol: "Cd", cat: "communication", url: "https://www.classdojo.com", desc: "Comunidad de aula." },
   { name: "Telegram", symbol: "Tg", cat: "communication", url: "https://telegram.org", desc: "Mensajería segura." },
-  { name: "MagicSchool", symbol: "Ms", cat: "content_mgmt", url: "https://www.magicschool.ai", desc: "Suite completa de herramientas IA diseñadas específicamente para profesores." },
+  { name: "MagicSchool", symbol: "Ms", cat: "content_mgmt", url: "https://www.magicschool.ai", desc: "Suite completa de herramientas IA diseñadas específicamente para profesores.", featured: true },
   { name: "Eduaide", symbol: "Ea", cat: "content_mgmt", url: "https://www.eduaide.ai", desc: "Asistente para planificar lecciones y generar recursos educativos." },
   { name: "Notion", symbol: "No", cat: "content_mgmt", url: "https://www.notion.so", desc: "Espacio de trabajo todo en uno con IA integrada." },
   { name: "Classroom", symbol: "Cr", cat: "content_mgmt", url: "https://edu.google.com/products/classroom/", desc: "Gestión de clases de Google." },
@@ -78,7 +91,7 @@ const allApps: AppTool[] = [
   { name: "Califica", symbol: "Cf", cat: "evaluation", url: "https://califica.ai", desc: "Plataforma que optimiza la carga administrativa y calificación docente." },
   { name: "QuestionW.", symbol: "Qw", cat: "evaluation", url: "https://www.questionwell.org", desc: "Genera bancos de preguntas y cuestionarios a partir de textos o videos." },
   { name: "Brisk", symbol: "Br", cat: "evaluation", url: "https://www.briskteaching.com", desc: "Extensión de Chrome para dar feedback rápido y detectar IA." },
-  { name: "Kahoot!", symbol: "K!", cat: "evaluation", url: "https://kahoot.com", desc: "Aprendizaje basado en juegos." },
+  { name: "Kahoot!", symbol: "K!", cat: "evaluation", url: "https://kahoot.com", desc: "Aprendizaje basado en juegos.", featured: true },
   { name: "Quizizz", symbol: "Qz", cat: "evaluation", url: "https://quizizz.com", desc: "Cuestionarios gamificados con funciones IA." },
   { name: "Edpuzzle", symbol: "Ed", cat: "evaluation", url: "https://edpuzzle.com", desc: "Video-lecciones interactivas (ahora con teacher assist)." },
   { name: "Socrative", symbol: "So", cat: "evaluation", url: "https://www.socrative.com", desc: "Evaluación en tiempo real." },
@@ -87,7 +100,7 @@ const allApps: AppTool[] = [
   { name: "Mentimeter", symbol: "Mm", cat: "evaluation", url: "https://www.mentimeter.com", desc: "Encuestas interactivas." },
   { name: "PearDeck", symbol: "Pk", cat: "evaluation", url: "https://www.peardeck.com", desc: "Slides interactivas." },
   { name: "Forms", symbol: "Gf", cat: "evaluation", url: "https://www.google.com/forms", desc: "Encuestas Google." },
-  { name: "Khan", symbol: "Ka", cat: "edu_content", url: "https://www.khanacademy.org", desc: "Tutoría personalizada con Khanmigo (IA)." },
+  { name: "Khan", symbol: "Ka", cat: "edu_content", url: "https://www.khanacademy.org", desc: "Tutoría personalizada con Khanmigo (IA).", featured: true },
   { name: "Duolingo", symbol: "Du", cat: "edu_content", url: "https://www.duolingo.com", desc: "Idiomas gamificados." },
   { name: "YouTube", symbol: "Yt", cat: "edu_content", url: "https://www.youtube.com", desc: "Plataforma de video educativa." },
   { name: "Slideshare", symbol: "Ss", cat: "edu_content", url: "https://www.slideshare.net", desc: "Repositorio de presentaciones." },
@@ -109,11 +122,131 @@ const allApps: AppTool[] = [
 
 const categoryOrder = ['ai_gen', 'creation', 'programming', 'organization', 'communication', 'content_mgmt', 'evaluation', 'edu_content', 'resources'];
 
+// Floating particle component
+const FloatingParticle = ({ delay, size, left, top }: { delay: number; size: number; left: string; top: string }) => (
+  <div
+    className="absolute rounded-full bg-primary-foreground/20 animate-pulse"
+    style={{
+      width: size,
+      height: size,
+      left,
+      top,
+      animationDelay: `${delay}s`,
+      animationDuration: '3s',
+    }}
+  />
+);
+
+const ToolCard = ({
+  app,
+  cat,
+  onSelect,
+  isSelected,
+}: {
+  app: AppTool;
+  cat: { name: string; full: string; color: string; textColor: string; bgLight: string };
+  onSelect: (app: AppTool | null) => void;
+  isSelected: boolean;
+}) => {
+  const logoUrl = `https://www.google.com/s2/favicons?domain=${app.url}&sz=128`;
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      ref={cardRef}
+      className="relative group"
+      onMouseEnter={() => onSelect(app)}
+      onMouseLeave={() => onSelect(null)}
+    >
+      <a
+        href={app.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`relative flex flex-col items-center gap-1 p-3 sm:p-4 rounded-2xl border bg-card border-border transition-all duration-300 cursor-pointer
+          hover:scale-105 hover:z-30 hover:shadow-xl ${categoryHoverBorder[app.cat]}
+          ${isSelected ? 'scale-105 z-30 shadow-xl border-primary/40' : ''}
+          ${app.featured ? 'ring-1 ring-primary/10' : ''}
+        `}
+      >
+        {/* Featured star */}
+        {app.featured && (
+          <div className="absolute -top-1.5 -right-1.5 z-10">
+            <Star size={14} className="text-amber-400 fill-amber-400 drop-shadow" />
+          </div>
+        )}
+
+        {/* Category color bar */}
+        <div className={`absolute top-0 left-3 right-3 h-[3px] rounded-b-full ${cat.color} opacity-50 group-hover:opacity-100 transition-opacity`} />
+
+        {/* Atomic number */}
+        <span className="self-start text-[8px] font-mono font-bold text-muted-foreground/50">
+          {app.atomicNumber}
+        </span>
+
+        {/* Logo */}
+        <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
+          <img
+            src={logoUrl}
+            alt={app.name}
+            className="w-8 h-8 sm:w-10 sm:h-10 object-contain drop-shadow-sm group-hover:scale-110 transition-transform duration-300"
+            loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+              (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+            }}
+          />
+          <span className="hidden text-lg font-black text-muted-foreground">{app.symbol}</span>
+        </div>
+
+        {/* Name */}
+        <span className="text-[10px] sm:text-xs font-extrabold text-muted-foreground group-hover:text-foreground truncate w-full text-center leading-tight transition-colors">
+          {app.name}
+        </span>
+
+        {/* Hover arrow indicator */}
+        <div className="absolute bottom-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+          <ArrowUpRight size={10} className="text-primary" />
+        </div>
+      </a>
+
+      {/* Desktop tooltip */}
+      {isSelected && (
+        <div className="hidden md:block absolute bottom-full left-1/2 -translate-x-1/2 mb-3 z-[100] w-64 animate-scale-in">
+          <div className="bg-card border border-border rounded-xl p-4 shadow-2xl">
+            <div className="flex items-start gap-3 mb-2">
+              <img
+                src={logoUrl}
+                alt={app.name}
+                className="w-8 h-8 object-contain shrink-0"
+              />
+              <div className="min-w-0">
+                <h4 className="font-black text-sm text-foreground truncate">{app.name}</h4>
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${cat.textColor}`}>
+                  {cat.full}
+                </span>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">{app.desc}</p>
+            <div className="mt-2 pt-2 border-t border-border flex items-center gap-1 text-[10px] text-primary font-bold">
+              <ExternalLink size={10} /> Clic para visitar
+            </div>
+          </div>
+          {/* Tooltip arrow */}
+          <div className="w-3 h-3 bg-card border-r border-b border-border rotate-45 absolute -bottom-1.5 left-1/2 -translate-x-1/2" />
+        </div>
+      )}
+    </div>
+  );
+};
+
 const HerramientasIA = () => {
   const { lang } = useLang();
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selectedApp, setSelectedApp] = useState<AppTool | null>(null);
+  const [mobileDetailApp, setMobileDetailApp] = useState<AppTool | null>(null);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const sortedApps = useMemo(() => {
     const sorted = [...allApps].sort((a, b) => categoryOrder.indexOf(a.cat) - categoryOrder.indexOf(b.cat));
@@ -129,7 +262,6 @@ const HerramientasIA = () => {
     });
   }, [sortedApps, search, activeFilter]);
 
-  // Group apps by category for section headers
   const groupedApps = useMemo(() => {
     const groups: { cat: string; apps: AppTool[] }[] = [];
     let currentCat = '';
@@ -143,43 +275,133 @@ const HerramientasIA = () => {
     return groups;
   }, [filteredApps]);
 
+  // Intersection observer for section animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setVisibleSections(prev => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    );
+
+    Object.values(sectionRefs.current).forEach(ref => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [groupedApps]);
+
+  // Handle mobile tap
+  const handleMobileTap = (app: AppTool) => {
+    if (window.innerWidth < 768) {
+      setMobileDetailApp(app);
+    }
+  };
+
+  const featuredApps = useMemo(() => sortedApps.filter(a => a.featured).slice(0, 6), [sortedApps]);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-destructive/80 py-14 px-4">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-6 left-10 text-8xl">🤖</div>
-          <div className="absolute top-12 right-20 text-6xl">🧠</div>
-          <div className="absolute bottom-8 left-1/3 text-7xl">💡</div>
-          <div className="absolute bottom-4 right-10 text-5xl">⚡</div>
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-destructive/70 py-16 md:py-20 px-4">
+        {/* Animated background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <FloatingParticle delay={0} size={6} left="10%" top="20%" />
+          <FloatingParticle delay={0.5} size={4} left="25%" top="60%" />
+          <FloatingParticle delay={1} size={8} left="70%" top="15%" />
+          <FloatingParticle delay={1.5} size={5} left="85%" top="50%" />
+          <FloatingParticle delay={2} size={7} left="50%" top="75%" />
+          <FloatingParticle delay={0.8} size={3} left="40%" top="30%" />
+          <FloatingParticle delay={1.2} size={6} left="60%" top="85%" />
+          <FloatingParticle delay={0.3} size={4} left="15%" top="80%" />
+          {/* Grid pattern */}
+          <div className="absolute inset-0 opacity-5" style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }} />
         </div>
+
         <div className="relative max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-primary-foreground/15 backdrop-blur-sm px-4 py-1.5 rounded-full mb-5">
-            <Sparkles size={14} className="text-primary-foreground" />
+          <div className="inline-flex items-center gap-2 bg-primary-foreground/15 backdrop-blur-sm px-5 py-2 rounded-full mb-6 animate-fade-in">
+            <Sparkles size={14} className="text-primary-foreground animate-pulse" />
             <span className="text-xs font-bold text-primary-foreground uppercase tracking-widest">
               {lang === 'es' ? 'Para docentes innovadores' : 'Musuq yachachiqkunapaq'}
             </span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-black text-primary-foreground tracking-tight mb-3">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-primary-foreground tracking-tight mb-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             HERRAMIENTAS IA
           </h1>
-          <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto font-medium">
+          <p className="text-primary-foreground/80 text-base sm:text-lg max-w-2xl mx-auto font-medium leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
             {lang === 'es'
               ? 'Explora las mejores aplicaciones y herramientas de inteligencia artificial para potenciar tu enseñanza.'
               : 'Yachachiyniykita kallpanchanapaq aswan sumaq IA llamkanakunata maskay.'}
           </p>
-          <p className="text-primary-foreground/50 text-xs mt-4 font-medium">
+
+          {/* Quick stats */}
+          <div className="flex items-center justify-center gap-6 mt-8 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm rounded-xl px-4 py-2">
+              <Zap size={14} className="text-amber-300" />
+              <span className="text-sm font-bold text-primary-foreground">{allApps.length} herramientas</span>
+            </div>
+            <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm rounded-xl px-4 py-2">
+              <Star size={14} className="text-amber-300" />
+              <span className="text-sm font-bold text-primary-foreground">{categoryOrder.length} categorías</span>
+            </div>
+          </div>
+
+          <p className="text-primary-foreground/40 text-xs mt-6 font-medium">
             Elaborado por: Martín Herick Cahuana Mendoza
           </p>
         </div>
       </div>
 
+      {/* Featured Tools Strip */}
+      {!search && !activeFilter && (
+        <div className="bg-muted/50 border-b border-border py-5 px-4 overflow-hidden">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center gap-2 mb-3">
+              <Star size={14} className="text-amber-500 fill-amber-500" />
+              <span className="text-xs font-black uppercase tracking-wider text-muted-foreground">
+                {lang === 'es' ? 'Destacadas' : "Riqsisqa"}
+              </span>
+            </div>
+            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+              {featuredApps.map(app => (
+                <a
+                  key={`feat-${app.name}`}
+                  href={app.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shrink-0 hover:shadow-lg hover:border-primary/30 transition-all duration-200 group hover:scale-[1.02]"
+                >
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${app.url}&sz=128`}
+                    alt={app.name}
+                    className="w-8 h-8 object-contain"
+                    loading="lazy"
+                  />
+                  <div className="min-w-0">
+                    <div className="text-sm font-black text-foreground">{app.name}</div>
+                    <div className="text-[10px] text-muted-foreground truncate max-w-[150px]">{app.desc}</div>
+                  </div>
+                  <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search & Filters */}
-        <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-md py-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-b border-border mb-6">
+        <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-md py-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-b border-border mb-8">
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
-            <div className="relative flex-1 max-w-lg">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <div className="relative flex-1 max-w-lg group">
+              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" />
               <input
                 type="text"
                 value={search}
@@ -188,23 +410,26 @@ const HerramientasIA = () => {
                 className="w-full pl-10 pr-4 py-3 rounded-2xl border border-border bg-card text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary focus:outline-none shadow-sm transition-all"
               />
               {search && (
-                <button onClick={() => setSearch('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                <button onClick={() => setSearch('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
                   <X size={14} />
                 </button>
               )}
             </div>
-            <div className="text-sm text-muted-foreground font-bold self-center whitespace-nowrap">
-              {filteredApps.length} {lang === 'es' ? 'herramientas' : 'llamkanakuna'}
+            <div className="flex items-center gap-2 text-sm text-muted-foreground font-bold self-center whitespace-nowrap">
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-black">
+                {filteredApps.length}
+              </span>
+              {lang === 'es' ? 'herramientas' : 'llamkanakuna'}
             </div>
           </div>
 
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setActiveFilter(null)}
-              className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 ${
                 !activeFilter
-                  ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-105'
+                  : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:scale-[1.02]'
               }`}
             >
               {lang === 'es' ? '🌟 Todas' : '🌟 Lliw'}
@@ -213,13 +438,13 @@ const HerramientasIA = () => {
               <button
                 key={key}
                 onClick={() => setActiveFilter(activeFilter === key ? null : key)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
                   activeFilter === key
-                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                    : 'bg-card text-muted-foreground border border-border hover:border-primary/30 hover:text-foreground'
+                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-105'
+                    : 'bg-card text-muted-foreground border border-border hover:border-primary/30 hover:text-foreground hover:scale-[1.02]'
                 }`}
               >
-                <span className={`w-2 h-2 rounded-full ${categories[key].color}`} />
+                <span className="text-sm">{categories[key].emoji}</span>
                 {categories[key].name}
               </button>
             ))}
@@ -227,137 +452,111 @@ const HerramientasIA = () => {
         </div>
 
         {/* Grouped Grid */}
-        {groupedApps.map(group => (
-          <div key={group.cat} className="mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <span className={`w-3 h-3 rounded-full ${categories[group.cat].color}`} />
-              <h2 className={`text-lg font-black uppercase tracking-wide ${categories[group.cat].textColor}`}>
-                {categories[group.cat].full}
-              </h2>
-              <div className="flex-1 h-px bg-border" />
-              <span className="text-xs font-bold text-muted-foreground">{group.apps.length}</span>
+        {groupedApps.map(group => {
+          const cat = categories[group.cat];
+          const sectionId = `section-${group.cat}`;
+          const isVisible = visibleSections.has(sectionId);
+          return (
+            <div
+              key={group.cat}
+              id={sectionId}
+              ref={el => { sectionRefs.current[sectionId] = el; }}
+              className={`mb-10 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
+              {/* Section Header */}
+              <div className={`flex items-center gap-3 mb-5 p-3 rounded-xl bg-gradient-to-r ${categoryGradient[group.cat]}`}>
+                <span className="text-xl">{cat.emoji}</span>
+                <div>
+                  <h2 className={`text-base sm:text-lg font-black uppercase tracking-wide ${cat.textColor}`}>
+                    {cat.full}
+                  </h2>
+                  <span className="text-[10px] font-bold text-muted-foreground">
+                    {group.apps.length} {lang === 'es' ? 'herramientas' : 'llamkanakuna'}
+                  </span>
+                </div>
+                <div className="flex-1 h-px bg-border/50" />
+              </div>
+
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 sm:gap-3">
+                {group.apps.map((app) => (
+                  <div key={app.symbol + app.name} onClick={() => handleMobileTap(app)}>
+                    <ToolCard
+                      app={app}
+                      cat={cat}
+                      onSelect={setSelectedApp}
+                      isSelected={selectedApp?.name === app.name}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2">
-              {group.apps.map((app) => {
-                const cat = categories[app.cat];
-                const logoUrl = `https://www.google.com/s2/favicons?domain=${app.url}&sz=128`;
-                return (
-                  <a
-                    key={app.symbol + app.name}
-                    href={app.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group relative aspect-square bg-card border border-border rounded-2xl p-2 flex flex-col items-center justify-between transition-all duration-200 hover:scale-110 hover:z-50 hover:shadow-lg cursor-pointer ${categoryHoverBorder[app.cat]}`}
-                    onMouseEnter={() => setSelectedApp(app)}
-                    onMouseLeave={() => setSelectedApp(null)}
-                  >
-                    {/* Category color bar */}
-                    <div className={`absolute top-0 left-2 right-2 h-[3px] rounded-b-full ${cat.color} opacity-60 group-hover:opacity-100 transition-opacity`} />
-
-                    {/* Atomic number */}
-                    <span className="self-start text-[9px] font-mono font-bold text-muted-foreground/60 mt-0.5">
-                      {app.atomicNumber}
-                    </span>
-
-                    {/* Logo */}
-                    <div className="flex-1 flex items-center justify-center w-full">
-                      <img
-                        src={logoUrl}
-                        alt={app.name}
-                        className="w-[50%] h-[50%] object-contain drop-shadow group-hover:scale-125 transition-transform duration-200"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                        }}
-                      />
-                      <span className="hidden text-xl font-black text-muted-foreground">{app.symbol}</span>
-                    </div>
-
-                    {/* Name */}
-                    <span className="text-[9px] font-extrabold uppercase text-muted-foreground group-hover:text-foreground truncate w-full text-center leading-tight pb-0.5 transition-colors">
-                      {app.name}
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+          );
+        })}
 
         {filteredApps.length === 0 && (
-          <div className="text-center py-20">
-            <span className="text-5xl mb-4 block">🔍</span>
-            <p className="text-lg font-black text-foreground mb-1">
+          <div className="text-center py-20 animate-fade-in">
+            <span className="text-6xl mb-4 block">🔍</span>
+            <p className="text-lg font-black text-foreground mb-2">
               {lang === 'es' ? 'No se encontraron herramientas' : 'Manam llamkana tarikunchu'}
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground mb-6">
               {lang === 'es' ? 'Prueba con otro término de búsqueda.' : 'Huk rimaywanmi maskay.'}
             </p>
+            <button
+              onClick={() => { setSearch(''); setActiveFilter(null); }}
+              className="px-6 py-2.5 bg-primary text-primary-foreground rounded-xl font-bold text-sm hover:bg-primary/90 transition-colors"
+            >
+              {lang === 'es' ? 'Ver todas las herramientas' : 'Lliw llamkanakunata qaway'}
+            </button>
           </div>
         )}
 
-        {/* Info panel (desktop floating) */}
-        {selectedApp && (
-          <div className="hidden md:block fixed bottom-6 right-6 z-[100] w-80 bg-card/95 backdrop-blur-xl border border-border rounded-2xl p-5 shadow-2xl animate-fade-in">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-14 h-14 bg-muted rounded-xl flex items-center justify-center p-2 shrink-0 border border-border">
-                <img
-                  src={`https://www.google.com/s2/favicons?domain=${selectedApp.url}&sz=128`}
-                  alt={selectedApp.name}
-                  className="w-full h-full object-contain"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                />
-              </div>
-              <div className="min-w-0">
-                <h3 className="text-lg font-black text-foreground truncate">{selectedApp.name}</h3>
-                <span className={`text-xs font-bold uppercase tracking-wider ${categories[selectedApp.cat].textColor}`}>
-                  {categories[selectedApp.cat].full}
-                </span>
-              </div>
-            </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">{selectedApp.desc}</p>
-            <div className="mt-3 pt-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
-              <span className="font-mono">#{selectedApp.atomicNumber}</span>
-              <span className="flex items-center gap-1 text-primary font-bold">
-                {lang === 'es' ? 'Ver web' : 'Llikaman riy'} <ExternalLink size={10} />
-              </span>
-            </div>
-          </div>
-        )}
-
-        {/* Mobile detail modal */}
-        {selectedApp && (
-          <div className="md:hidden fixed inset-0 z-[100] flex items-end" onClick={() => setSelectedApp(null)}>
-            <div className="absolute inset-0 bg-foreground/30 backdrop-blur-sm" />
-            <div className="relative w-full bg-card rounded-t-3xl p-6 shadow-2xl animate-fade-in" onClick={e => e.stopPropagation()}>
-              <div className="w-10 h-1 bg-border rounded-full mx-auto mb-4" />
-              <button onClick={() => setSelectedApp(null)} className="absolute top-5 right-5 text-muted-foreground hover:text-foreground">
-                <X size={20} />
+        {/* Mobile detail bottom sheet */}
+        {mobileDetailApp && (
+          <div className="md:hidden fixed inset-0 z-[100] flex items-end" onClick={() => setMobileDetailApp(null)}>
+            <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm animate-fade-in" />
+            <div
+              className="relative w-full bg-card rounded-t-3xl p-6 shadow-2xl animate-slide-in-right"
+              style={{ animation: 'slideUp 0.3s ease-out' }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="w-12 h-1.5 bg-border rounded-full mx-auto mb-5" />
+              <button
+                onClick={() => setMobileDetailApp(null)}
+                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X size={16} />
               </button>
+
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center p-2 border border-border">
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center p-3 border border-border ${categories[mobileDetailApp.cat].bgLight}`}>
                   <img
-                    src={`https://www.google.com/s2/favicons?domain=${selectedApp.url}&sz=128`}
-                    alt={selectedApp.name}
+                    src={`https://www.google.com/s2/favicons?domain=${mobileDetailApp.url}&sz=128`}
+                    alt={mobileDetailApp.name}
                     className="w-full h-full object-contain"
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-foreground">{selectedApp.name}</h3>
-                  <span className={`text-xs font-bold uppercase ${categories[selectedApp.cat].textColor}`}>
-                    {categories[selectedApp.cat].full}
-                  </span>
+                  <h3 className="text-xl font-black text-foreground">{mobileDetailApp.name}</h3>
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${categories[mobileDetailApp.cat].color}`} />
+                    <span className={`text-xs font-bold uppercase ${categories[mobileDetailApp.cat].textColor}`}>
+                      {categories[mobileDetailApp.cat].full}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{selectedApp.desc}</p>
+
+              <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{mobileDetailApp.desc}</p>
+
               <a
-                href={selectedApp.url}
+                href={mobileDetailApp.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center bg-primary text-primary-foreground font-extrabold py-3.5 rounded-2xl shadow-md shadow-primary/20 active:scale-95 transition-transform"
+                className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground font-extrabold py-4 rounded-2xl shadow-lg shadow-primary/20 active:scale-95 transition-transform text-base"
               >
-                {lang === 'es' ? 'Visitar sitio web' : 'Llikaman riy'} →
+                {lang === 'es' ? 'Visitar sitio web' : 'Llikaman riy'}
+                <ExternalLink size={16} />
               </a>
             </div>
           </div>
@@ -365,9 +564,19 @@ const HerramientasIA = () => {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-border py-6 text-center text-xs text-muted-foreground">
-        Derechos de Autor Reservados © 2026
+      <div className="border-t border-border py-8 text-center text-xs text-muted-foreground">
+        <p className="font-bold">Derechos de Autor Reservados © 2026</p>
       </div>
+
+      {/* CSS for mobile sheet animation */}
+      <style>{`
+        @keyframes slideUp {
+          from { transform: translateY(100%); }
+          to { transform: translateY(0); }
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </div>
   );
 };
