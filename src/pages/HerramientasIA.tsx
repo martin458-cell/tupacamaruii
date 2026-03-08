@@ -251,12 +251,6 @@ const HerramientasIA = () => {
                     className={`group relative aspect-square bg-card border border-border rounded-2xl p-2 flex flex-col items-center justify-between transition-all duration-200 hover:scale-110 hover:z-50 hover:shadow-lg cursor-pointer ${categoryHoverBorder[app.cat]}`}
                     onMouseEnter={() => setSelectedApp(app)}
                     onMouseLeave={() => setSelectedApp(null)}
-                    onClick={(e) => {
-                      if (window.innerWidth < 768 && selectedApp?.name !== app.name) {
-                        e.preventDefault();
-                        setSelectedApp(app);
-                      }
-                    }}
                   >
                     {/* Category color bar */}
                     <div className={`absolute top-0 left-2 right-2 h-[3px] rounded-b-full ${cat.color} opacity-60 group-hover:opacity-100 transition-opacity`} />
