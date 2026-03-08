@@ -40,7 +40,7 @@ const allApps: AppTool[] = [
   { name: "Gemini", symbol: "Ge", cat: "ai_gen", url: "https://gemini.google.com/app?hl=es", desc: "La IA multimodal de Google conectada con sus herramientas." },
   { name: "Copilot", symbol: "Co", cat: "ai_gen", url: "https://copilot.microsoft.com/", desc: "Asistente IA de Microsoft integrado en Edge y Office." },
   { name: "Perplexity", symbol: "Px", cat: "ai_gen", url: "https://www.perplexity.ai", desc: "Buscador conversacional que cita fuentes reales en tiempo real." },
-  { name: "Claude", symbol: "Cl", cat: "ai_gen", url: "https://claude.ai", desc: "IA de Anthropic, excelente para análisis de textos largos y naturales." },
+  { name: "Claude", symbol: "Cl", cat: "ai_gen", url: "https://claude.com/", desc: "IA de Anthropic, excelente para análisis de textos largos y naturales." },
   { name: "Gamma", symbol: "Gm", cat: "creation", url: "https://gamma.app", desc: "IA que crea presentaciones, documentos y páginas web en segundos." },
   { name: "Curipod", symbol: "Cu", cat: "creation", url: "https://curipod.com", desc: "Crea lecciones interactivas con encuestas y dibujos generados por IA." },
   { name: "Suno", symbol: "Su", cat: "creation", url: "https://suno.com", desc: "Generación de canciones y música completa mediante IA." },
