@@ -9,7 +9,6 @@ import Footer from "@/components/Footer";
 import PaginaInstitucional from "@/pages/PaginaInstitucional";
 import BibliotecaVirtual from "@/pages/BibliotecaVirtual";
 import RinconCivico from "@/pages/RinconCivico";
-import HerramientasIA from "@/pages/HerramientasIA";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,8 +24,6 @@ const App = () => (
           <Routes>
             <Route path="/" element={<PaginaInstitucional />} />
             <Route path="/biblioteca" element={<BibliotecaVirtual />} />
-            <Route path="/rincon-civico" element={<RinconCivico />} />
-            <Route path="/herramientas-ia" element={<HerramientasIA />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

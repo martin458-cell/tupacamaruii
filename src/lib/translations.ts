@@ -97,7 +97,7 @@ export const locales = {
     back: "Volver"
   },
   qu: {
-    nav: { home: "Qallariy", essence: "Yachayninchik", methodology: "Yachachiy Ñan", admissions: "Qillqakuy", library: "Ñawinchana Wasi", civic: "Llaqta Taki", tools: "IA Llamkanakuna" },
+    nav: { home: "Qallariy", essence: "Yachayninchik", methodology: "Yachachiy Ñan", admissions: "Qillqakuy", library: "Ñawinchana Wasi", civic: "Llaqta Taki" },
     hero: {
       title1: "Paqarin pusaqkunata wiñachispa ",
       titleHighlight: "munakuywan musuq yachaywanpas",
