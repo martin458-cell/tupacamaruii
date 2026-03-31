@@ -2,7 +2,7 @@ export type Lang = 'es' | 'qu';
 
 export const locales = {
   es: {
-    nav: { home: "Inicio", essence: "Esencia", methodology: "Metodología", admissions: "Admisiones", library: "Biblioteca", civic: "Rincón Cívico", tools: "Herramientas IA" },
+    nav: { home: "Inicio", essence: "Esencia", methodology: "Metodología", admissions: "Admisiones", library: "Biblioteca Escolar", civic: "Rincón Cívico" },
     hero: {
       title1: "Formando a los líderes del mañana con ",
       titleHighlight: "amor e innovación",
