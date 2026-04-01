@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, BookOpen, ArrowLeft, ZoomIn, ZoomOut, Maximize, Minimize, Star, Clock, Filter, X, ChevronRight } from 'lucide-react';
+import { Search, BookOpen, ArrowLeft, ZoomIn, ZoomOut, Maximize, Minimize, Star, Clock, Filter, X, ChevronRight, FileText } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
 
@@ -14,6 +14,7 @@ type Book = {
   image: string;
   desc: string;
   pages: string[];
+  pdfUrl?: string;
   rating: number;
   readTime: string;
 };
@@ -90,10 +91,28 @@ const BOOKS_DATA: Book[] = [
       "Desde aquel día, cada vez que los niños de Puquio ven un cóndor volando sobre las montañas, recuerdan la historia de Wayra.\n\n«Miren», dicen los abuelos señalando el cielo, «el cóndor cuida de nuestra tierra. Nos recuerda que debemos respetar la naturaleza y amar nuestras tradiciones».\n\nY así, entre montañas y cielos azules, las historias de Puquio siguen vivas en el corazón de cada niño que las escucha.\n\n— Fin —\n\n¿Te gustó esta historia? Pídele a tus abuelos que te cuenten más leyendas de nuestra tierra."
     ],
     rating: 5, readTime: "15 min"
+  },
+  {
+    id: 7, title: "Pensar y Aprender con Robots (1)", author: "Aprende Virtual",
+    category: "Robótica", grade: "1° - 2°", area: "Ciencia y Tecnología", difficulty: "Básico",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=400&q=80",
+    desc: "Robótica y simuladores para Nivel Inicial (5 a 7 años). Aprende a pensar de forma lógica y creativa con robots educativos y actividades prácticas.",
+    pages: [],
+    pdfUrl: "/books/robotica-1.pdf",
+    rating: 5, readTime: "60 min"
+  },
+  {
+    id: 8, title: "Pensar y Aprender con Robots (2)", author: "Aprende Virtual",
+    category: "Robótica", grade: "3° - 4°", area: "Ciencia y Tecnología", difficulty: "Intermedio",
+    image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?auto=format&fit=crop&w=400&q=80",
+    desc: "Robótica y simuladores para Nivel Primario (8 a 11 años). Proyectos prácticos con robots para desarrollar el pensamiento computacional.",
+    pages: [],
+    pdfUrl: "/books/robotica-2.pdf",
+    rating: 5, readTime: "60 min"
   }
 ];
 
-const CATEGORIES = ['Todos', 'Cuentos', 'Ciencia', 'Historia', 'Valores'];
+const CATEGORIES = ['Todos', 'Cuentos', 'Ciencia', 'Historia', 'Valores', 'Robótica'];
 const GRADES = ['Todos', '1° - 2°', '3° - 4°', '5° - 6°'];
 const DIFFICULTIES = ['Todos', 'Básico', 'Intermedio', 'Avanzado'];
 
@@ -148,7 +167,7 @@ const BibliotecaVirtual = () => {
   };
 
   const categoryEmoji: Record<string, string> = {
-    'Cuentos': '📖', 'Ciencia': '🔬', 'Historia': '🏛️', 'Valores': '💛'
+    'Cuentos': '📖', 'Ciencia': '🔬', 'Historia': '🏛️', 'Valores': '💛', 'Robótica': '🤖'
   };
 
   const difficultyColor: Record<string, string> = {
@@ -157,7 +176,37 @@ const BibliotecaVirtual = () => {
     'Avanzado': 'bg-red-100 text-red-700',
   };
 
-  // ─── READER VIEW ───
+  // ─── PDF READER VIEW ───
+  if (selectedBook && selectedBook.pdfUrl) {
+    const book = selectedBook;
+    return (
+      <div ref={readerRef} className={`min-h-screen flex flex-col ${isFullscreen ? 'bg-muted' : 'bg-gradient-to-b from-primary/5 to-background'}`}>
+        <div className="sticky top-0 z-40 bg-card/95 backdrop-blur border-b border-border px-4 py-3 flex items-center justify-between gap-2">
+          <button onClick={closeBook} className="flex items-center gap-2 text-sm font-bold text-primary hover:text-primary/80 transition-colors shrink-0">
+            <ArrowLeft size={18} />
+            <span className="hidden sm:inline">{t.back}</span>
+          </button>
+          <h2 className="font-extrabold text-foreground text-sm sm:text-base truncate text-center flex-1 mx-2 flex items-center justify-center gap-2">
+            <FileText size={16} className="text-primary" />
+            {book.title}
+          </h2>
+          <button onClick={toggleFullscreen} className="p-2 rounded-lg hover:bg-muted transition-colors" title="Pantalla completa">
+            {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
+          </button>
+        </div>
+        <div className="flex-1 w-full">
+          <iframe
+            src={book.pdfUrl}
+            className="w-full border-0"
+            style={{ height: isFullscreen ? 'calc(100vh - 56px)' : 'calc(100vh - 120px)' }}
+            title={book.title}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // ─── TEXT READER VIEW ───
   if (selectedBook) {
     const book = selectedBook;
     const totalPages = book.pages.length;
