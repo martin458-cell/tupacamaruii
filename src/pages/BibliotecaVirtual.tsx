@@ -91,7 +91,7 @@ const BOOKS_DATA: Book[] = [
       "Desde aquel día, cada vez que los niños de Puquio ven un cóndor volando sobre las montañas, recuerdan la historia de Wayra.\n\n«Miren», dicen los abuelos señalando el cielo, «el cóndor cuida de nuestra tierra. Nos recuerda que debemos respetar la naturaleza y amar nuestras tradiciones».\n\nY así, entre montañas y cielos azules, las historias de Puquio siguen vivas en el corazón de cada niño que las escucha.\n\n— Fin —\n\n¿Te gustó esta historia? Pídele a tus abuelos que te cuenten más leyendas de nuestra tierra."
     ],
     rating: 5, readTime: "15 min"
-  }
+  },
   {
     id: 7, title: "Pensar y Aprender con Robots (1)", author: "Aprende Virtual",
     category: "Robótica", grade: "1° - 2°", area: "Ciencia y Tecnología", difficulty: "Básico",
