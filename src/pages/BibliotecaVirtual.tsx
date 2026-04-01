@@ -176,7 +176,37 @@ const BibliotecaVirtual = () => {
     'Avanzado': 'bg-red-100 text-red-700',
   };
 
-  // ─── READER VIEW ───
+  // ─── PDF READER VIEW ───
+  if (selectedBook && selectedBook.pdfUrl) {
+    const book = selectedBook;
+    return (
+      <div ref={readerRef} className={`min-h-screen flex flex-col ${isFullscreen ? 'bg-muted' : 'bg-gradient-to-b from-primary/5 to-background'}`}>
+        <div className="sticky top-0 z-40 bg-card/95 backdrop-blur border-b border-border px-4 py-3 flex items-center justify-between gap-2">
+          <button onClick={closeBook} className="flex items-center gap-2 text-sm font-bold text-primary hover:text-primary/80 transition-colors shrink-0">
+            <ArrowLeft size={18} />
+            <span className="hidden sm:inline">{t.back}</span>
+          </button>
+          <h2 className="font-extrabold text-foreground text-sm sm:text-base truncate text-center flex-1 mx-2 flex items-center justify-center gap-2">
+            <FileText size={16} className="text-primary" />
+            {book.title}
+          </h2>
+          <button onClick={toggleFullscreen} className="p-2 rounded-lg hover:bg-muted transition-colors" title="Pantalla completa">
+            {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
+          </button>
+        </div>
+        <div className="flex-1 w-full">
+          <iframe
+            src={book.pdfUrl}
+            className="w-full border-0"
+            style={{ height: isFullscreen ? 'calc(100vh - 56px)' : 'calc(100vh - 120px)' }}
+            title={book.title}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // ─── TEXT READER VIEW ───
   if (selectedBook) {
     const book = selectedBook;
     const totalPages = book.pages.length;
