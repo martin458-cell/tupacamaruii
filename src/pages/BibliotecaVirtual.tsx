@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, BookOpen, ArrowLeft, ZoomIn, ZoomOut, Maximize, Minimize, Star, Clock, Filter, X, ChevronRight } from 'lucide-react';
+import { Search, BookOpen, ArrowLeft, ZoomIn, ZoomOut, Maximize, Minimize, Star, Clock, Filter, X, ChevronRight, FileText } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
 
