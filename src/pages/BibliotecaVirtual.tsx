@@ -167,7 +167,7 @@ const BibliotecaVirtual = () => {
   };
 
   const categoryEmoji: Record<string, string> = {
-    'Cuentos': '📖', 'Ciencia': '🔬', 'Historia': '🏛️', 'Valores': '💛'
+    'Cuentos': '📖', 'Ciencia': '🔬', 'Historia': '🏛️', 'Valores': '💛', 'Robótica': '🤖'
   };
 
   const difficultyColor: Record<string, string> = {
