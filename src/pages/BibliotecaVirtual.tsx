@@ -14,6 +14,7 @@ type Book = {
   image: string;
   desc: string;
   pages: string[];
+  pdfUrl?: string;
   rating: number;
   readTime: string;
 };
