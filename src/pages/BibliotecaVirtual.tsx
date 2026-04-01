@@ -92,9 +92,27 @@ const BOOKS_DATA: Book[] = [
     ],
     rating: 5, readTime: "15 min"
   }
+  {
+    id: 7, title: "Pensar y Aprender con Robots (1)", author: "Aprende Virtual",
+    category: "Robótica", grade: "1° - 2°", area: "Ciencia y Tecnología", difficulty: "Básico",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=400&q=80",
+    desc: "Robótica y simuladores para Nivel Inicial (5 a 7 años). Aprende a pensar de forma lógica y creativa con robots educativos y actividades prácticas.",
+    pages: [],
+    pdfUrl: "/books/robotica-1.pdf",
+    rating: 5, readTime: "60 min"
+  },
+  {
+    id: 8, title: "Pensar y Aprender con Robots (2)", author: "Aprende Virtual",
+    category: "Robótica", grade: "3° - 4°", area: "Ciencia y Tecnología", difficulty: "Intermedio",
+    image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?auto=format&fit=crop&w=400&q=80",
+    desc: "Robótica y simuladores para Nivel Primario (8 a 11 años). Proyectos prácticos con robots para desarrollar el pensamiento computacional.",
+    pages: [],
+    pdfUrl: "/books/robotica-2.pdf",
+    rating: 5, readTime: "60 min"
+  }
 ];
 
-const CATEGORIES = ['Todos', 'Cuentos', 'Ciencia', 'Historia', 'Valores'];
+const CATEGORIES = ['Todos', 'Cuentos', 'Ciencia', 'Historia', 'Valores', 'Robótica'];
 const GRADES = ['Todos', '1° - 2°', '3° - 4°', '5° - 6°'];
 const DIFFICULTIES = ['Todos', 'Básico', 'Intermedio', 'Avanzado'];
 
