@@ -83,7 +83,7 @@ const PaginaInstitucional = () => {
       {/* Quick Access */}
       <section className="py-8 -mt-6 relative z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 gap-5">
             {quickItems.map((item, idx) => (
               <QuickAccessCard key={idx} {...item} />
             ))}
