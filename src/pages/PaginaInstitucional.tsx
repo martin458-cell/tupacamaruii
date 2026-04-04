@@ -6,34 +6,39 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import heroPortada from '@/assets/hero-portada.jpg';
 
-const QuickAccessCard = ({ icon: Icon, title, desc, color, to }: {
+const quickCardColors = [
+  { bg: 'bg-primary/10', hover: 'hover:bg-primary/20', icon: 'text-primary', ring: 'ring-primary/30' },
+  { bg: 'bg-accent/15', hover: 'hover:bg-accent/25', icon: 'text-accent-foreground', ring: 'ring-accent/30' },
+  { bg: 'bg-destructive/10', hover: 'hover:bg-destructive/20', icon: 'text-destructive', ring: 'ring-destructive/30' },
+];
+
+const QuickAccessCard = ({ icon: Icon, title, desc, colorIdx, to }: {
   icon: React.ComponentType<any>;
   title: string;
   desc: string;
-  color: string;
+  colorIdx: number;
   to?: string;
 }) => {
+  const c = quickCardColors[colorIdx % quickCardColors.length];
   const content = (
-    <>
-      <Icon className={`mx-auto mb-2 ${color}`} size={28} />
-      <p className="font-extrabold text-sm text-foreground">{title}</p>
-      <p className="text-xs text-muted-foreground">{desc}</p>
-    </>
+    <div className={`group ${c.bg} ${c.hover} rounded-3xl p-6 shadow-md border border-border hover:shadow-xl hover:-translate-y-2 hover:ring-2 ${c.ring} transition-all duration-300 cursor-pointer text-center`}>
+      <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-card shadow-sm flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+        <Icon className={c.icon} size={28} />
+      </div>
+      <p className="font-extrabold text-base text-foreground">{title}</p>
+      <p className="text-xs text-muted-foreground mt-1">{desc}</p>
+      <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <span className="inline-flex items-center gap-1 text-xs font-bold text-primary">
+          {to ? 'Explorar' : 'Ver más'} <ChevronRight size={14} />
+        </span>
+      </div>
+    </div>
   );
 
   if (to) {
-    return (
-      <Link to={to} className="bg-card rounded-2xl p-5 shadow-md border border-border hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer text-center">
-        {content}
-      </Link>
-    );
+    return <Link to={to}>{content}</Link>;
   }
-
-  return (
-    <div className="bg-card rounded-2xl p-5 shadow-md border border-border hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer text-center">
-      {content}
-    </div>
-  );
+  return content;
 };
 
 const PaginaInstitucional = () => {
@@ -41,10 +46,9 @@ const PaginaInstitucional = () => {
   const t = locales[lang];
 
   const quickItems = [
-    { icon: Calendar, title: t.quick.calTitle, desc: t.quick.calDesc, color: 'text-primary' },
-    { icon: BookOpen, title: t.quick.platTitle, desc: t.quick.platDesc, color: 'text-primary', to: '/biblioteca' },
-    { icon: Globe2, title: lang === 'es' ? 'Rincón' : 'Llaqta', desc: lang === 'es' ? 'Cívico' : 'Taki', color: 'text-primary', to: '/rincon-civico' },
-    { icon: Bell, title: lang === 'es' ? 'Herramientas' : 'Llamkana', desc: lang === 'es' ? 'IA' : 'IA', color: 'text-destructive', to: '/herramientas-ia' },
+    { icon: Calendar, title: t.quick.calTitle, desc: t.quick.calDesc, colorIdx: 0 },
+    { icon: BookOpen, title: t.quick.platTitle, desc: t.quick.platDesc, colorIdx: 1, to: '/biblioteca' },
+    { icon: Globe2, title: lang === 'es' ? 'Rincón' : 'Llaqta', desc: lang === 'es' ? 'Cívico' : 'Taki', colorIdx: 2, to: '/rincon-civico' },
   ];
 
   return (
