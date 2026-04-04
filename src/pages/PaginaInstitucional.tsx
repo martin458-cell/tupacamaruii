@@ -52,26 +52,37 @@ const PaginaInstitucional = () => {
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/10 py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-accent/20 text-accent-foreground px-4 py-2 rounded-full text-sm font-bold mb-6">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              {t.hero.badgeTitle} — {t.hero.badgeDesc}
+          <div className="flex flex-col lg:flex-row items-center gap-10">
+            <div className="flex-1 max-w-2xl">
+              <div className="inline-flex items-center gap-2 bg-accent/20 text-accent-foreground px-4 py-2 rounded-full text-sm font-bold mb-6">
+                <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                {t.hero.badgeTitle} — {t.hero.badgeDesc}
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-foreground mb-6">
+                {t.hero.title1}
+                <span className="text-primary">{t.hero.titleHighlight}</span>
+              </h1>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                {t.hero.desc}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a href="#admisiones" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all hover:scale-105">
+                  {t.hero.btnPrimary}
+                  <ChevronRight size={18} />
+                </a>
+                <Link to="/herramientas-ia" className="inline-flex items-center gap-2 bg-card text-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-md border border-border hover:border-primary/30 transition-all">
+                  {lang === 'es' ? 'Herramientas IA' : 'IA Llamkanakuna'}
+                </Link>
+              </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-foreground mb-6">
-              {t.hero.title1}
-              <span className="text-primary">{t.hero.titleHighlight}</span>
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-              {t.hero.desc}
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="#admisiones" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                {t.hero.btnPrimary}
-                <ChevronRight size={18} />
-              </a>
-              <Link to="/herramientas-ia" className="inline-flex items-center gap-2 bg-card text-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-md border border-border hover:border-primary/30 transition-all">
-                {lang === 'es' ? 'Herramientas IA' : 'IA Llamkanakuna'}
-              </Link>
+            <div className="flex-1 w-full max-w-xl">
+              <img
+                src={heroPortada}
+                alt="Estudiantes de la I.E. 24009 Túpac Amaru II aprendiendo con tecnología y robótica"
+                width={1920}
+                height={768}
+                className="rounded-3xl shadow-2xl border-4 border-primary/20 object-cover w-full h-auto"
+              />
             </div>
           </div>
         </div>
