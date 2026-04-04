@@ -100,7 +100,6 @@ const PaginaInstitucional = () => {
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: Globe2, title: t.essence.card1Title, desc: t.essence.card1Desc, gradient: 'from-primary/10 to-primary/5' },
               { icon: Cpu, title: t.essence.card2Title, desc: t.essence.card2Desc, gradient: 'from-accent/20 to-accent/5' },
               { icon: Heart, title: t.essence.card3Title, desc: t.essence.card3Desc, gradient: 'from-destructive/10 to-destructive/5' },
             ].map((card, idx) => (
