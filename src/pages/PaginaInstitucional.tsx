@@ -60,10 +60,6 @@ const PaginaInstitucional = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         <div className="relative z-10 flex flex-col justify-end h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
-          <div className="inline-flex items-center gap-2 bg-accent/80 text-accent-foreground px-4 py-2 rounded-full text-sm font-bold mb-4 w-fit backdrop-blur-sm">
-            <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            {t.hero.badgeTitle} — {t.hero.badgeDesc}
-          </div>
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight text-white mb-4 max-w-3xl drop-shadow-lg">
             {t.hero.title1}
             <span className="text-amber-300">{t.hero.titleHighlight}</span>
