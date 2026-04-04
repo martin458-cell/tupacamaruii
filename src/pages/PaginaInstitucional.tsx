@@ -72,13 +72,10 @@ const PaginaInstitucional = () => {
             {t.hero.desc}
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href="#admisiones" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all hover:scale-105">
+            <a href="#esencia" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all hover:scale-105">
               {t.hero.btnPrimary}
               <ChevronRight size={18} />
             </a>
-            <Link to="/herramientas-ia" className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-2xl font-bold text-base shadow-md border border-white/30 hover:bg-white/30 transition-all">
-              {lang === 'es' ? 'Herramientas IA' : 'IA Llamkanakuna'}
-            </Link>
           </div>
         </div>
       </section>
