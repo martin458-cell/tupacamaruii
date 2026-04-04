@@ -4,6 +4,7 @@ import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import heroPortada from '@/assets/hero-portada.jpg';
 
 const QuickAccessCard = ({ icon: Icon, title, desc, color, to }: {
   icon: React.ComponentType<any>;
