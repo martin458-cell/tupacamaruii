@@ -150,63 +150,7 @@ const PaginaInstitucional = () => {
         </div>
       </section>
 
-      {/* Admissions */}
-      <AdmissionsSection />
     </div>
-  );
-};
-
-const AdmissionsSection = () => {
-  const { lang } = useLang();
-  const t = locales[lang];
-  const [form, setForm] = useState({ parent: '', student: '', grade: '', email: '', phone: '' });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success(lang === 'es' ? '¡Solicitud enviada con éxito!' : 'Apachisqa!');
-    setForm({ parent: '', student: '', grade: '', email: '', phone: '' });
-  };
-
-  return (
-    <section id="admisiones" className="py-16 sm:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-black text-foreground mb-4">{t.admissions.title}</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">{t.admissions.desc}</p>
-        </div>
-        <div className="grid sm:grid-cols-3 gap-6 mb-12">
-          {[
-            { num: 1, title: t.admissions.step1Title, desc: t.admissions.step1Desc },
-            { num: 2, title: t.admissions.step2Title, desc: t.admissions.step2Desc },
-            { num: 3, title: t.admissions.step3Title, desc: t.admissions.step3Desc },
-          ].map((step) => (
-            <div key={step.num} className="bg-card rounded-3xl p-6 shadow-md border border-border text-center">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center font-black text-xl mx-auto mb-4">
-                {step.num}
-              </div>
-              <h3 className="font-extrabold text-lg text-foreground mb-2">{step.title}</h3>
-              <p className="text-sm text-muted-foreground">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="max-w-xl mx-auto bg-card rounded-3xl p-8 shadow-lg border border-border">
-          <h3 className="font-extrabold text-2xl text-foreground mb-6 text-center">{t.admissions.formTitle}</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="text" placeholder={t.admissions.formNameParent} value={form.parent} onChange={(e) => setForm({ ...form, parent: e.target.value })} required className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none" />
-            <input type="text" placeholder={t.admissions.formNameStudent} value={form.student} onChange={(e) => setForm({ ...form, student: e.target.value })} required className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none" />
-            <div className="grid grid-cols-2 gap-4">
-              <input type="text" placeholder={t.admissions.formGrade} value={form.grade} onChange={(e) => setForm({ ...form, grade: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none" />
-              <input type="email" placeholder={t.admissions.formEmail} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none" />
-            </div>
-            <input type="tel" placeholder={t.admissions.formPhone} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none" />
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-4 rounded-2xl font-bold text-base shadow-md hover:shadow-lg transition-all hover:scale-[1.02]">
-              {t.admissions.formBtn}
-            </button>
-            <p className="text-center text-xs text-muted-foreground">{t.admissions.formPrivacy}</p>
-          </form>
-        </div>
-      </div>
-    </section>
   );
 };
 
