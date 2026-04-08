@@ -367,60 +367,8 @@ const PaginaInstitucional = () => {
         </div>
       </section>
 
-      {/* ═══════ ESSENCE ═══════ */}
-      <section id="esencia" className="py-14 bg-muted/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <span className="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-bold mb-3">{t.essence.tag}</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-foreground mb-3">{t.essence.title}</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-sm">{t.essence.desc}</p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {[
-              { icon: Cpu, title: t.essence.card2Title, desc: t.essence.card2Desc, gradient: 'from-accent/20 to-accent/5' },
-              { icon: Heart, title: t.essence.card3Title, desc: t.essence.card3Desc, gradient: 'from-destructive/10 to-destructive/5' },
-            ].map((card, idx) => (
-              <div key={idx} className={`bg-gradient-to-br ${card.gradient} rounded-2xl p-7 border border-border hover:shadow-lg transition-all`}>
-                <card.icon className="text-primary mb-3" size={32} />
-                <h3 className="font-extrabold text-lg text-foreground mb-2">{card.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ═══════ METHODOLOGY ═══════ */}
-      <section id="metodologia" className="py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
-                alt="Estudiantes aprendiendo"
-                className="w-full h-72 object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-black text-foreground mb-5">{t.methodology.title}</h2>
-              <p className="text-muted-foreground mb-3 leading-relaxed text-sm">{t.methodology.desc1}</p>
-              <p className="text-muted-foreground mb-5 leading-relaxed text-sm">{t.methodology.desc2}</p>
-              <ul className="space-y-2 mb-6">
-                {[t.methodology.point1, t.methodology.point2, t.methodology.point3].map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</span>
-                    <span className="text-foreground font-semibold text-sm">{point}</span>
-                  </li>
-                ))}
-              </ul>
-              <button className="bg-primary text-primary-foreground px-7 py-3 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all">
-                {t.methodology.btn}
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
     </div>
   );
