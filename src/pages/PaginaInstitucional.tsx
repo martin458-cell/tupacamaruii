@@ -255,82 +255,24 @@ const PaginaInstitucional = () => {
         </div>
       </section>
 
-      {/* ═══════ NEWS + SIDEBAR ═══════ */}
-      <section id="noticias" className="py-10 bg-muted/40">
+      {/* ═══════ COMUNIDAD STATS ═══════ */}
+      <section id="comunidad" className="py-10 bg-muted/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-
-            {/* News column */}
-            <div className="lg:col-span-2">
-              <h2 className="text-xl font-black text-foreground mb-6 flex items-center gap-2">
-                <span className="w-1.5 h-7 bg-destructive rounded-full" />
-                {l('Noticias Escolares', 'Yachay Wasi Willakuykuna')}
-              </h2>
-              <div className="space-y-6">
-                {newsItems.map(item => (
-                  <article key={item.id} className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
-                    <div className="sm:flex">
-                      <div className="sm:w-56 shrink-0">
-                        <img src={item.image} alt="" className="w-full h-44 sm:h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                      </div>
-                      <div className="p-5 flex flex-col justify-between">
-                        <div>
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-xs font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full">{lang === 'es' ? item.categoryEs : item.categoryQu}</span>
-                            <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock size={12} /> {lang === 'es' ? item.dateEs : item.dateQu}</span>
-                          </div>
-                          <h3 className="font-extrabold text-foreground text-base mb-2 leading-snug">{lang === 'es' ? item.titleEs : item.titleQu}</h3>
-                          <p className="text-sm text-muted-foreground leading-relaxed">{lang === 'es' ? item.descEs : item.descQu}</p>
-                        </div>
-                        <button className="mt-3 text-primary font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all w-fit">
-                          {l('Leer más', 'Astawanña ñawinchay')} <ChevronRight size={14} />
-                        </button>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            {/* Events sidebar */}
-            <aside>
-              <h2 className="text-xl font-black text-foreground mb-6 flex items-center gap-2">
-                <span className="w-1.5 h-7 bg-accent rounded-full" />
-                {l('Próximos Eventos', 'Hamuq Raymikuna')}
-              </h2>
-              <div className="space-y-3">
-                {eventsData.map((ev, idx) => (
-                  <div key={idx} className="bg-card border border-border rounded-2xl p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
-                    <div className={`${ev.color} text-primary-foreground rounded-xl w-14 h-14 flex flex-col items-center justify-center shrink-0`}>
-                      <span className="text-lg font-black leading-none">{lang === 'es' ? ev.dayEs : ev.dayQu}</span>
-                      <span className="text-[10px] font-bold uppercase">{lang === 'es' ? ev.monthEs : ev.monthQu}</span>
-                    </div>
-                    <div>
-                      <p className="font-bold text-sm text-foreground">{lang === 'es' ? ev.titleEs : ev.titleQu}</p>
-                      <p className="text-xs text-muted-foreground flex items-center gap-1"><Clock size={11} /> {lang === 'es' ? ev.timeEs : ev.timeQu}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Stats card */}
-              <div className="mt-6 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-2xl p-6">
-                <h3 className="font-extrabold text-lg mb-4">{l('Nuestra Comunidad', 'Ayllu Yachayninchik')}</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { num: '350+', labelEs: 'Estudiantes', labelQu: 'Yachakuqkuna' },
-                    { num: '18', labelEs: 'Docentes', labelQu: 'Yachachiqkuna' },
-                    { num: '6', labelEs: 'Grados', labelQu: 'Ñiqikuna' },
-                    { num: '25+', labelEs: 'Años', labelQu: 'Watakuna' },
-                  ].map((stat, i) => (
-                    <div key={i} className="text-center">
-                      <p className="text-2xl font-black">{stat.num}</p>
-                      <p className="text-xs opacity-80">{lang === 'es' ? stat.labelEs : stat.labelQu}</p>
-                    </div>
-                  ))}
+          <div className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-2xl p-8 shadow-lg">
+            <h3 className="font-extrabold text-xl sm:text-2xl mb-6 text-center">{l('Nuestra Comunidad', 'Ayllu Yachayninchik')}</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {[
+                { num: '230+', labelEs: 'Estudiantes', labelQu: 'Yachakuqkuna' },
+                { num: '15', labelEs: 'Docentes', labelQu: 'Yachachiqkuna' },
+                { num: '6', labelEs: 'Grados', labelQu: 'Ñiqikuna' },
+                { num: '91', labelEs: 'Años de creación', labelQu: 'Paqarisqan watakuna' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <p className="text-3xl sm:text-4xl font-black">{stat.num}</p>
+                  <p className="text-xs sm:text-sm opacity-90 mt-1">{lang === 'es' ? stat.labelEs : stat.labelQu}</p>
                 </div>
-              </div>
-            </aside>
+              ))}
+            </div>
           </div>
         </div>
       </section>
