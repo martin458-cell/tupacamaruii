@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Calendar, BookOpen, Globe2, Cpu, Heart, ChevronRight, ChevronLeft, Clock, Users, Star, Bell, Share2, ThumbsUp, MessageSquare, Award, GraduationCap, Megaphone, Image as ImageIcon } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Calendar, BookOpen, Globe2, Cpu, Heart, ChevronRight, ChevronLeft, Clock, Users, Star, Bell, Share2, ThumbsUp, MessageSquare, Award, GraduationCap, Megaphone, Image as ImageIcon, Target, Eye, Music, Play, Pause } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
@@ -142,6 +142,20 @@ const PaginaInstitucional = () => {
     const timer = setInterval(nextSlide, 6000);
     return () => clearInterval(timer);
   }, [nextSlide]);
+
+  /* Hymn audio */
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  const toggleAudio = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
 
   /* Post likes */
   const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set());
