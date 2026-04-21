@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, MessageCircle } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
+import logoInstitucional from '@/assets/logo-institucional.png';
 
 const Footer = () => {
   const { lang } = useLang();
@@ -13,9 +14,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-3xl">🏫</span>
-              <span className="font-extrabold text-lg">I.E. 24009 <span className="text-destructive">"Túpac Amaru II"</span></span>
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src={logoInstitucional}
+                alt='Escudo I.E. 24009 Túpac Amaru II'
+                className="h-14 w-14 object-contain bg-white/5 rounded-lg p-1"
+              />
+              <span className="font-extrabold text-lg leading-tight">I.E. 24009 <span className="text-destructive">"Túpac Amaru II"</span></span>
             </div>
             <p className="text-sm opacity-80 leading-relaxed">{t.footer.desc}</p>
           </div>
