@@ -193,8 +193,8 @@ const PaginaInstitucional = () => {
             {lang === 'es' ? slide.subtitleEs : slide.subtitleQu}
           </p>
           <div className="flex gap-3">
-            <a href="#noticias" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform shadow-lg">
-              {l('Ver Noticias', 'Willakuykunata Qaway')}
+            <a href="#comunidad" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform shadow-lg">
+              {l('Nuestra Comunidad', 'Ayllu Yachayninchik')}
             </a>
             <Link to="/biblioteca" className="bg-white/20 backdrop-blur text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-white/30 transition-colors border border-white/30">
               {l('Biblioteca', 'Ñawinchana Wasi')}
