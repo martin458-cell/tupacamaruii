@@ -5,6 +5,9 @@ import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
 import heroPortada from '@/assets/hero-portada.jpg';
 import logoInstitucional from '@/assets/logo-institucional.png';
+import carruselPlantones1 from '@/assets/carrusel-plantones-1.jpg';
+import carruselPlantones2 from '@/assets/carrusel-plantones-2.jpg';
+import carruselDesfile from '@/assets/carrusel-desfile.jpg';
 
 /* ─── Banner Slider Data ─── */
 const bannerSlides = [
@@ -37,6 +40,36 @@ const bannerSlides = [
     subtitleQu: 'Yachakuqkunapa atipayninkunata kusikuywan yupaychayku.',
     tagEs: '🏆 Evento Próximo',
     tagQu: '🏆 Hamuq Raymi',
+  },
+  {
+    id: 4,
+    image: carruselPlantones1,
+    titleEs: 'Sembrando vida: Campaña de Reforestación',
+    titleQu: 'Kawsayta Tarpuspa: Sachakunata Tarpuy',
+    subtitleEs: 'Nuestros estudiantes participan activamente en el cuidado del medio ambiente.',
+    subtitleQu: 'Yachakuqninchikkuna pachamamata waqaychaypi yanapanku.',
+    tagEs: '🌱 Conciencia Ambiental',
+    tagQu: '🌱 Pachamama Yachay',
+  },
+  {
+    id: 5,
+    image: carruselPlantones2,
+    titleEs: 'Educación con Valores y Responsabilidad Ecológica',
+    titleQu: 'Chaninchaywan Pachamamapaq Yachachiy',
+    subtitleEs: 'Formamos ciudadanos comprometidos con su comunidad y la naturaleza.',
+    subtitleQu: 'Ayllunwan pachamamawanpas tinkisqa runakunata wiñachiyku.',
+    tagEs: '🌳 Acción Verde',
+    tagQu: '🌳 Qumir Ruray',
+  },
+  {
+    id: 6,
+    image: carruselDesfile,
+    titleEs: 'Orgullo Cívico en las Calles de Puquio',
+    titleQu: 'Puquio Llaqtapi Llaqtanchikpa Kusikuynin',
+    subtitleEs: 'Desfilamos con honor llevando en alto el nombre de nuestra institución.',
+    subtitleQu: 'Yachay wasinchikpa sutinta hatunchaspa puriyku.',
+    tagEs: '🇵🇪 Identidad Nacional',
+    tagQu: '🇵🇪 Llaqtanchikpa Kayninchik',
   },
 ];
 
