@@ -218,16 +218,23 @@ const PaginaInstitucional = () => {
         </div>
       </section>
 
-      {/* ═══════ MARQUEE ═══════ */}
+      {/* ═══════ MARQUEE ─ FRASES CÉLEBRES TÚPAC AMARU II ═══════ */}
       <div className="bg-primary text-primary-foreground py-2 overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap flex items-center gap-8 text-sm font-semibold">
-          <span className="inline-flex items-center gap-1"><Bell size={14} /> {l('📋 Matrícula 2026 abierta — ¡Inscríbete ya!', '📋 2026 Qillqakuy kichasqa — ¡Qillqakuy kunanmi!')}</span>
-          <span className="inline-flex items-center gap-1"><Star size={14} /> {l('🏆 Ganadores de la Olimpiada Regional de Matemáticas', '🏆 Yupay Atipanakuy Suyupi atipaqkuna')}</span>
-          <span className="inline-flex items-center gap-1"><Calendar size={14} /> {l('📅 Reunión de padres: Viernes 10 de abril, 3 PM', '📅 Tayta-mama huñunakuy: Viernes 10 abril, 3 PM')}</span>
-          <span className="inline-flex items-center gap-1"><Megaphone size={14} /> {l('🎉 Feria de Ciencias — 15 de abril', '🎉 Hamutay Rantikuy — 15 abril')}</span>
+        <div className="animate-marquee whitespace-nowrap flex items-center gap-10 text-sm font-semibold">
+          <span className="inline-flex items-center gap-2"><Star size={14} /> {l('✊ "Campesino, el patrón ya no comerá más de tu pobreza" — Túpac Amaru II', '✊ "Llaqta runa, patronqa manaña wakcha kayniykimanta mikhunqachu" — Túpac Amaru II')}</span>
+          <span className="opacity-60">•</span>
+          <span className="inline-flex items-center gap-2"><BookOpen size={14} /> {l('📚 "El saber libera al pueblo: estudiar es también rebelarse"', '📚 "Yachayqa llaqtata kacharin: yachayqa hatariypas kanmi"')}</span>
+          <span className="opacity-60">•</span>
+          <span className="inline-flex items-center gap-2"><Megaphone size={14} /> {l('🔥 "Volveré y seré millones" — La educación nos hace inmortales', '🔥 "Kutimusaqmi waranqa waranqa kanaypaq" — Yachayqa wiñay kawsaytam quwanchik')}</span>
+          <span className="opacity-60">•</span>
+          <span className="inline-flex items-center gap-2"><Award size={14} /> {l('🦅 4 de noviembre 1780: rebelión de Sangarará — semilla de libertad y dignidad', '🦅 4 noviembre 1780: Sangarará hatariy — qispiy chaymanta chaninchakuypa muhun')}</span>
+          <span className="opacity-60">•</span>
+          <span className="inline-flex items-center gap-2"><GraduationCap size={14} /> {l('✨ Estudiantes de Ccollana: como Túpac Amaru, forjamos libertad con conocimiento', '✨ Ccollana yachakuqkuna: Túpac Amaru hina, yachaywan qispiyta paqarichinchik')}</span>
+          <span className="opacity-60">•</span>
           {/* duplicate for seamless loop */}
-          <span className="inline-flex items-center gap-1"><Bell size={14} /> {l('📋 Matrícula 2026 abierta — ¡Inscríbete ya!', '📋 2026 Qillqakuy kichasqa — ¡Qillqakuy kunanmi!')}</span>
-          <span className="inline-flex items-center gap-1"><Star size={14} /> {l('🏆 Ganadores de la Olimpiada Regional de Matemáticas', '🏆 Yupay Atipanakuy Suyupi atipaqkuna')}</span>
+          <span className="inline-flex items-center gap-2"><Star size={14} /> {l('✊ "Campesino, el patrón ya no comerá más de tu pobreza" — Túpac Amaru II', '✊ "Llaqta runa, patronqa manaña wakcha kayniykimanta mikhunqachu" — Túpac Amaru II')}</span>
+          <span className="opacity-60">•</span>
+          <span className="inline-flex items-center gap-2"><BookOpen size={14} /> {l('📚 "El saber libera al pueblo: estudiar es también rebelarse"', '📚 "Yachayqa llaqtata kacharin: yachayqa hatariypas kanmi"')}</span>
         </div>
       </div>
 
