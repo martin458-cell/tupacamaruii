@@ -335,7 +335,7 @@ const PaginaInstitucional = () => {
                     <div>
                       <p className="text-xs font-bold uppercase tracking-wider opacity-80">{l('Himno Institucional', 'Yachay Wasi Taki')}</p>
                       <h3 className="text-xl sm:text-2xl font-black leading-tight">
-                        {l('Himno a la Escuela 24009 T.A. II', 'Yachay Wasi 24009 T.A. II Taki')}
+                        {l('Himno a la Escuela', 'Yachay Wasi Taki')}
                       </h3>
                     </div>
                   </div>
