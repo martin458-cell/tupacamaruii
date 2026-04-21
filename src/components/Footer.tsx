@@ -17,10 +17,10 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-4">
               <img
                 src={logoInstitucional}
-                alt='Escudo I.E. 24009 Túpac Amaru II'
+                alt='Escudo IEPM N° 24009 Túpac Amaru II'
                 className="h-14 w-14 object-contain bg-white/5 rounded-lg p-1"
               />
-              <span className="font-extrabold text-lg leading-tight">I.E. 24009 <span className="text-destructive">"Túpac Amaru II"</span></span>
+              <span className="font-extrabold text-lg leading-tight">IEPM N° 24009 <span className="text-destructive">"Túpac Amaru II"</span></span>
             </div>
             <p className="text-sm opacity-80 leading-relaxed">{t.footer.desc}</p>
           </div>
@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-6 text-center">
-          <p className="text-sm opacity-60">© 2026 I.E. 24009. {t.footer.rights}</p>
+          <p className="text-sm opacity-60">© 2026 IEPM N° 24009 "Túpac Amaru II". {t.footer.rights}</p>
         </div>
       </div>
     </footer>

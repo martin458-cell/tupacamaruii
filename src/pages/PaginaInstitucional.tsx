@@ -11,8 +11,8 @@ const bannerSlides = [
   {
     id: 1,
     image: heroPortada,
-    titleEs: 'Bienvenidos a la I.E. 24009 "Túpac Amaru II"',
-    titleQu: 'Allinmi Hamunki I.E. 24009 "Túpac Amaru II"',
+    titleEs: 'Bienvenidos a la IEPM N° 24009 "Túpac Amaru II"',
+    titleQu: 'Allinmi Hamunki IEPM N° 24009 "Túpac Amaru II"',
     subtitleEs: 'Formando líderes con innovación, valores y amor por el aprendizaje en Puquio.',
     subtitleQu: 'Musuq yachaywan, chaninchaywanpas pusaqkunata wiñachispa Puquio llaqtapi.',
     tagEs: '📢 Matrícula Abierta 2026',
@@ -186,7 +186,7 @@ const PaginaInstitucional = () => {
         <div className="relative z-10 flex flex-col justify-center h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <img
             src={logoInstitucional}
-            alt='Escudo institucional I.E. 24009 Túpac Amaru II - Puquio'
+            alt='Escudo institucional IEPM N° 24009 Túpac Amaru II - Puquio'
             className="w-24 h-24 sm:w-28 sm:h-28 object-contain mb-5 drop-shadow-2xl animate-fade-in"
           />
           <span className="inline-block w-fit bg-destructive text-destructive-foreground text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-4 animate-pulse">

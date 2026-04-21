@@ -37,11 +37,11 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3 group">
             <img
               src={logoInstitucional}
-              alt='Escudo I.E. 24009 Túpac Amaru II - Puquio'
+              alt='Escudo IEPM N° 24009 Túpac Amaru II - Puquio'
               className="h-12 w-12 sm:h-14 sm:w-14 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
             />
             <span className="font-extrabold text-foreground text-sm sm:text-base leading-tight">
-              I.E. 24009 <span className="text-destructive">"Túpac Amaru II"</span>
+              IEPM N° 24009 <span className="text-destructive">"Túpac Amaru II"</span>
             </span>
           </Link>
 
