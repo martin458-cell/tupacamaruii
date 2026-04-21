@@ -335,53 +335,6 @@ const PaginaInstitucional = () => {
         </div>
       </section>
 
-      {/* ═══════ SOCIAL POSTS ═══════ */}
-      <section className="py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xl font-black text-foreground mb-6 flex items-center gap-2">
-            <span className="w-1.5 h-7 bg-primary rounded-full" />
-            {l('Publicaciones de la Comunidad', 'Ayllu Willakuykuna')}
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {postsData.map(post => {
-              const liked = likedPosts.has(post.id);
-              return (
-                <div key={post.id} className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
-                  {/* Header */}
-                  <div className="p-4 flex items-center gap-3">
-                    <span className="text-3xl">{post.avatar}</span>
-                    <div>
-                      <p className="font-bold text-sm text-foreground">{lang === 'es' ? post.authorEs : post.authorQu}</p>
-                      <p className="text-xs text-muted-foreground">{lang === 'es' ? post.roleEs : post.roleQu} · {lang === 'es' ? post.timeEs : post.timeQu}</p>
-                    </div>
-                  </div>
-                  {/* Content */}
-                  <div className="px-4 pb-3">
-                    <p className="text-sm text-foreground leading-relaxed">{lang === 'es' ? post.contentEs : post.contentQu}</p>
-                  </div>
-                  {post.imageUrl && (
-                    <img src={post.imageUrl} alt="" className="w-full h-44 object-cover" loading="lazy" />
-                  )}
-                  {/* Actions */}
-                  <div className="p-4 flex items-center gap-6 border-t border-border">
-                    <button onClick={() => toggleLike(post.id)} className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${liked ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}>
-                      <ThumbsUp size={16} className={liked ? 'fill-primary' : ''} /> {post.likes + (liked ? 1 : 0)}
-                    </button>
-                    <button className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">
-                      <MessageSquare size={16} /> {post.comments}
-                    </button>
-                    <button className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors ml-auto">
-                      <Share2 size={16} /> {l('Compartir', 'Rakiy')}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-
 
 
       {/* ═══════ MISIÓN · HIMNO · VISIÓN ═══════ */}
