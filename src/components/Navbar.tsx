@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
+import logoInstitucional from '@/assets/logo-institucional.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,9 +34,13 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b-4 border-destructive shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl">🏫</span>
-            <span className="font-extrabold text-foreground text-sm sm:text-base">
+          <Link to="/" className="flex items-center gap-3 group">
+            <img
+              src={logoInstitucional}
+              alt='Escudo I.E. 24009 Túpac Amaru II - Puquio'
+              className="h-12 w-12 sm:h-14 sm:w-14 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
+            />
+            <span className="font-extrabold text-foreground text-sm sm:text-base leading-tight">
               I.E. 24009 <span className="text-destructive">"Túpac Amaru II"</span>
             </span>
           </Link>
