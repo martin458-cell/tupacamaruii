@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Calendar, BookOpen, Globe2, Cpu, Heart, ChevronRight, ChevronLeft, Clock, Users, Star, Bell, Share2, ThumbsUp, MessageSquare, Award, GraduationCap, Megaphone, Image as ImageIcon } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Calendar, BookOpen, Globe2, Cpu, Heart, ChevronRight, ChevronLeft, Clock, Users, Star, Bell, Share2, ThumbsUp, MessageSquare, Award, GraduationCap, Megaphone, Image as ImageIcon, Target, Eye, Music, Play, Pause } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLang } from '@/hooks/useLang';
 import { locales } from '@/lib/translations';
@@ -142,6 +142,20 @@ const PaginaInstitucional = () => {
     const timer = setInterval(nextSlide, 6000);
     return () => clearInterval(timer);
   }, [nextSlide]);
+
+  /* Hymn audio */
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  const toggleAudio = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
 
   /* Post likes */
   const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set());
@@ -369,6 +383,101 @@ const PaginaInstitucional = () => {
 
 
 
+
+      {/* ═══════ MISIÓN · HIMNO · VISIÓN ═══════ */}
+      <section className="py-14 bg-gradient-to-b from-muted/40 to-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-black text-foreground">
+              {l('Identidad Institucional', 'Yachay Wasi Kikinchakuy')}
+            </h2>
+            <div className="w-20 h-1 bg-destructive rounded-full mx-auto mt-3" />
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-6">
+            {/* MISIÓN — izquierda */}
+            <article className="lg:col-span-3 group bg-card border border-border rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                <Target className="text-primary" size={28} />
+              </div>
+              <h3 className="text-xl font-black text-foreground mb-2">{l('Misión', 'Llamkayninchik')}</h3>
+              <div className="w-10 h-1 bg-primary rounded-full mb-4" />
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {l(
+                  'Brindar una educación integral, inclusiva y de calidad, formando estudiantes críticos, creativos y solidarios, con sólidos valores éticos y cívicos, capaces de enfrentar los retos de la sociedad actual desde nuestra identidad cultural andina.',
+                  'Hunt\'asqa, llapanpaq, allin yachayta quykuy, yachakuqkunata yuyaysapa, musuq ruwaqkunata, sumaq chaninchaywan, kawsay sasachakuykunaman atipanankupaq, ñawpa kawsayninchikmanta.'
+                )}
+              </p>
+            </article>
+
+            {/* HIMNO — centro */}
+            <article className="lg:col-span-6 relative bg-gradient-to-br from-destructive via-destructive to-primary text-destructive-foreground rounded-2xl p-8 shadow-2xl overflow-hidden">
+              {/* Decorative pattern */}
+              <div className="absolute inset-0 opacity-10 pointer-events-none">
+                <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full border-8 border-white" />
+                <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full border-8 border-white" />
+              </div>
+
+              <div className="relative">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
+                      <Music size={24} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider opacity-80">{l('Himno Institucional', 'Yachay Wasi Taki')}</p>
+                      <h3 className="text-xl sm:text-2xl font-black leading-tight">
+                        {l('Himno a la Escuela 24009 T.A. II', 'Yachay Wasi 24009 T.A. II Taki')}
+                      </h3>
+                    </div>
+                  </div>
+                  <button
+                    onClick={toggleAudio}
+                    aria-label={isPlaying ? 'Pausar himno' : 'Reproducir himno'}
+                    className="shrink-0 w-12 h-12 rounded-full bg-white text-destructive flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
+                  >
+                    {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
+                  </button>
+                </div>
+
+                <audio ref={audioRef} onEnded={() => setIsPlaying(false)} preload="none">
+                  {/* Reemplazar con la URL real del audio del himno */}
+                  <source src="/himno.mp3" type="audio/mpeg" />
+                </audio>
+
+                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-5 font-serif text-[15px] leading-relaxed">
+                  {[
+                    ['I', 'Estudiantes de Ccollana\nHoy cantemos con honor\nNuestro himno que es reflejo\nDe estudio y de unión.'],
+                    ['II', '4 de noviembre fecha gloriosa\nPara todo el Perú\nRecordemos Sangarará\nTúpac Amaru, hijo del sol.'],
+                    ['III', 'Con bravura y valentía\nRecordamos con honor\nLas hazañas triunfadoras\nQue iniciaron rebelión.'],
+                    ['IV', 'Túpac Amaru, cóndor de fuego\nQuema tu sangre, arde tu voz\nIlumina nuestra mente\nPara forjar la libertad.'],
+                  ].map(([roman, verse]) => (
+                    <div key={roman} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/15 hover:bg-white/15 transition-colors">
+                      <span className="inline-block text-2xl font-black opacity-80 mb-1">{roman}</span>
+                      <p className="whitespace-pre-line italic">{verse}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+
+            {/* VISIÓN — derecha */}
+            <article className="lg:col-span-3 group bg-card border border-border rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+              <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-accent/20 transition-all">
+                <Eye className="text-accent" size={28} />
+              </div>
+              <h3 className="text-xl font-black text-foreground mb-2">{l('Visión', 'Qhawariy')}</h3>
+              <div className="w-10 h-1 bg-accent rounded-full mb-4" />
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {l(
+                  'Ser al 2030 una institución educativa líder en Puquio, reconocida por su excelencia académica, innovación pedagógica y formación de ciudadanos comprometidos con el desarrollo sostenible, la interculturalidad y el legado de Túpac Amaru II.',
+                  '2030 watapi, Puquio llaqtapi ñawpaq yachay wasi kanaykupaq, allin yachaymanta, musuq pusariykunamanta, Túpac Amaru II kawsayninta qatispa.'
+                )}
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
 
     </div>
   );
