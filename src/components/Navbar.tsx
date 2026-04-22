@@ -17,7 +17,6 @@ const Navbar = () => {
     { to: '/', label: t.nav.home },
     { to: '/biblioteca', label: t.nav.library },
     { to: '/rincon-civico', label: t.nav.civic },
-    { to: '/#admisiones', label: t.nav.admissions },
   ];
 
   const handleNavClick = (to: string) => {
