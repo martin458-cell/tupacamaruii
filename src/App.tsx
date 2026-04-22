@@ -24,6 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<PaginaInstitucional />} />
             <Route path="/biblioteca" element={<BibliotecaVirtual />} />
+            <Route path="/rincon-civico" element={<RinconCivico />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
