@@ -16,6 +16,7 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: t.nav.home },
     { to: '/biblioteca', label: t.nav.library },
+    { to: '/aula-virtual', label: lang === 'es' ? 'Aula Virtual' : 'Yachay Llika' },
     { to: '/rincon-civico', label: t.nav.civic },
   ];
 
