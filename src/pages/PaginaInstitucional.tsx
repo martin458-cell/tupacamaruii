@@ -12,16 +12,6 @@ import carruselDesfile from '@/assets/carrusel-desfile.jpg';
 /* ─── Banner Slider Data ─── */
 const bannerSlides = [
   {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1920&q=80',
-    titleEs: 'Día del Logro y Feria de Ciencias',
-    titleQu: 'Atipay Punchaw chaymanta Hamutay Rantikuy',
-    subtitleEs: 'Celebramos los logros de nuestros estudiantes con orgullo y alegría.',
-    subtitleQu: 'Yachakuqkunapa atipayninkunata kusikuywan yupaychayku.',
-    tagEs: '🏆 Evento Próximo',
-    tagQu: '🏆 Hamuq Raymi',
-  },
-  {
     id: 4,
     image: carruselPlantones1,
     titleEs: 'Sembrando vida: Campaña de Reforestación',
