@@ -12,26 +12,6 @@ import carruselDesfile from '@/assets/carrusel-desfile.jpg';
 /* ─── Banner Slider Data ─── */
 const bannerSlides = [
   {
-    id: 1,
-    image: heroPortada,
-    titleEs: 'Bienvenidos a la IEPM N° 24009 "Túpac Amaru II"',
-    titleQu: 'Allinmi Hamunki IEPM N° 24009 "Túpac Amaru II"',
-    subtitleEs: 'Formando líderes con innovación, valores y amor por el aprendizaje en Puquio.',
-    subtitleQu: 'Musuq yachaywan, chaninchaywanpas pusaqkunata wiñachispa Puquio llaqtapi.',
-    tagEs: '📢 Matrícula Abierta 2026',
-    tagQu: '📢 Qillqakuy Kichay 2026',
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1920&q=80',
-    titleEs: 'Innovación Educativa con Robótica',
-    titleQu: 'Musuq Yachay Robótica nisqawan',
-    subtitleEs: 'Nuestros estudiantes aprenden tecnología, pensamiento lógico y trabajo en equipo.',
-    subtitleQu: 'Yachakuqninchik musuq antakunawan yuyayninkunata kallpanchanku.',
-    tagEs: '🤖 Programa STEAM',
-    tagQu: '🤖 STEAM Yachay',
-  },
-  {
     id: 3,
     image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1920&q=80',
     titleEs: 'Día del Logro y Feria de Ciencias',
