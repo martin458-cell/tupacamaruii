@@ -40,18 +40,18 @@ export const getCivicTracks = (lang: Lang) => [
     id: 0,
     title: locales[lang].civic.tracks.himno,
     artist: locales[lang].civic.tracks.artist,
-    src: 'https://raw.githubusercontent.com/martin458-cell/audios-formacion/main/himno.mp3'
+    src: '/audio/himno.mp3'
   },
   {
     id: 1,
     title: locales[lang].civic.tracks.marcha,
     artist: locales[lang].civic.tracks.artist,
-    src: 'https://raw.githubusercontent.com/martin458-cell/audios-formacion/main/marcha_banderas.mp3'
+    src: '/audio/marcha_banderas.mp3'
   },
   {
     id: 2,
     title: locales[lang].civic.tracks.desfile,
     artist: locales[lang].civic.tracks.artist,
-    src: 'https://raw.githubusercontent.com/martin458-cell/audios-formacion/main/desfile.mp3'
+    src: '/audio/desfile.mp3'
   }
 ];
