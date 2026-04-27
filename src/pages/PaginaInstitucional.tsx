@@ -127,8 +127,6 @@ const getQuickItems = (lang: 'es' | 'qu') => [
   { icon: Globe2, titleEs: 'Rincón Cívico', titleQu: 'Llaqta Taki', descEs: 'Himnos y marchas', descQu: 'Takikuna marchakuna', to: '/rincon-civico', color: 'bg-destructive', iconBg: 'bg-destructive/10' },
   { icon: Calendar, titleEs: 'Calendario', titleQu: 'Yachay Pacha', descEs: 'Eventos y fechas clave', descQu: 'Raymikuna punchawkuna', color: 'bg-accent', iconBg: 'bg-accent/10' },
   { icon: GraduationCap, titleEs: 'Aula Virtual', titleQu: 'Yachay Llika', descEs: 'Cursos para docentes con IA', descQu: 'IA-wan yachachiqkunapaq', to: '/aula-virtual', color: 'bg-primary', iconBg: 'bg-primary/10' },
-  { icon: Award, titleEs: 'Evaluaciones', titleQu: 'Ñiqinchay', descEs: 'Notas y reportes', descQu: 'Yupay willakuykuna', color: 'bg-destructive', iconBg: 'bg-destructive/10' },
-  { icon: Users, titleEs: 'Portal Padres', titleQu: 'Tayta-Mama', descEs: 'Información para familias', descQu: 'Ayllukunapaq willakuy', color: 'bg-accent', iconBg: 'bg-accent/10' },
 ];
 
 /* ─── Component ─── */
